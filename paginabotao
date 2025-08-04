@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Teste de Botão Kommo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Ambiente de Teste - Botão de Mensagem Kommo</h1>
+  <p>Este é um site fictício apenas para testar o botão de chat da Kommo.</p>
+
+  <!-- Botão de Mensagem da Kommo -->
+  <script>
+    (function(a,m,o,c,r,m){
+      a[m]={id:"1050363",hash:"ca8d3b3e6280fe02254052ed6aa5f0e00885846a7970f9afc371035c79c006ad",locale:"pt",setMeta:function(p){this.params=(this.params||[]).concat([p])}};
+      a[o]=a[o]||function(){(a[o].q=a[o].q||[]).push(arguments)};
+      var d=a.document,s=d.createElement('script');
+      s.async=true;s.id=m+'_script';
+      s.src='https://gso.kommo.com/js/button.js';
+      d.head&&d.head.appendChild(s)
+    })(window,0,'crmPlugin',0,0,'crm_plugin');
+  </script>
+
+</body>
+</html>
