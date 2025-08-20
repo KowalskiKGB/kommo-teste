@@ -1,36 +1,338 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <title>Teste de do chat Kommo para o Scoli</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin-top: 100px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extigraf - Soluções em Extintores e Segurança Contra Incêndio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide-react@0.379.0/dist/lucide-react.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .hero-bg {
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1555633962-b3038c313a25?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ef4444;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        .btn-primary {
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -10px rgba(239, 68, 68, 0.5);
+        }
+        .card {
+            transition: all 0.3s ease;
+            visibility: hidden; /* Initially hidden for ScrollReveal */
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.15);
+        }
+        .icon-service {
+            transition: all 0.3s ease;
+        }
+        .card-service:hover .icon-service {
+            transform: scale(1.1) rotate(-5deg);
+            filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.4));
+        }
+    </style>
 </head>
-<body>
+<body class="text-gray-800">
 
-  <h1>Seria ótimo implementar isso nos ambientes do Scoli</h1>
-  <p>Fala mano, fiz esse site básico de teste pra testar o botão de chat da kommo
-A ideia é implementar esse botão em cada escola cliente nossa, esse botão fica no cantinho, funciona no celular e computador
-Posso criar bots pra perguntas comuns, ex: como cancelo uma matrícula etc
-Todas as mensagens vão pra um funil isolado por escolas, Podium, Máximus, etc
-Extremamente útil nas implementações de sistemas, centraliza as mensagens, tira dúvidas, é possível enviar anexos, tudo, e totalmente grátis. Ou seja, é uma vantagem, pagar tráfego de whastapp somente em transmissões, e usar o chat para o site, e escolas implementadas
-Posso criar um funil só pro site e chamar de vendas, é possível guardar histórico de mensagens tanto pra escola quanto pra nós, isso faria eles tirarem as dúvidas já explorando o sistema, tornando dinâmico o suporte e melhorando nosso atendimento</p>
+    <!-- Header -->
+    <header id="header" class="bg-white/80 backdrop-blur-md fixed top-0 left-0 right-0 z-50 shadow-sm transition-all duration-300">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="#inicio" class="text-2xl font-bold text-red-600">Extigraf</a>
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#inicio" class="nav-link text-gray-600 hover:text-red-600 font-medium">Início</a>
+                    <a href="#produtos" class="nav-link text-gray-600 hover:text-red-600 font-medium">Produtos</a>
+                    <a href="#servicos" class="nav-link text-gray-600 hover:text-red-600 font-medium">Serviços</a>
+                    <a href="#sobre" class="nav-link text-gray-600 hover:text-red-600 font-medium">Sobre Nós</a>
+                    <a href="#contato" class="nav-link text-gray-600 hover:text-red-600 font-medium">Contato</a>
+                </nav>
+                <a href="#contato" class="btn-primary hidden md:inline-block bg-red-600 text-white font-semibold px-6 py-2 rounded-lg shadow-md hover:bg-red-700">
+                    Solicitar Orçamento
+                </a>
+                <button id="mobile-menu-button" class="md:hidden text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#inicio" class="block py-2 text-gray-600 hover:text-red-600">Início</a>
+            <a href="#produtos" class="block py-2 text-gray-600 hover:text-red-600">Produtos</a>
+            <a href="#servicos" class="block py-2 text-gray-600 hover:text-red-600">Serviços</a>
+            <a href="#sobre" class="block py-2 text-gray-600 hover:text-red-600">Sobre Nós</a>
+            <a href="#contato" class="block py-2 text-gray-600 hover:text-red-600">Contato</a>
+            <a href="#contato" class="mt-4 btn-primary block text-center bg-red-600 text-white font-semibold px-6 py-2 rounded-lg shadow-md hover:bg-red-700">
+                Solicitar Orçamento
+            </a>
+        </div>
+    </header>
 
-  <script>
-    (function(a,m,o,c,r,m){
-      a[m]={id:"1050363",hash:"ca8d3b3e6280fe02254052ed6aa5f0e00885846a7970f9afc371035c79c006ad",locale:"pt",setMeta:function(p){this.params=(this.params||[]).concat([p])}};
-      a[o]=a[o]||function(){(a[o].q=a[o].q||[]).push(arguments)};
-      var d=a.document,s=d.createElement('script');
-      s.async=true;s.id=m+'_script';
-      s.src='https://gso.kommo.com/js/button.js';
-      d.head&&d.head.appendChild(s)
-    })(window,0,'crmPlugin',0,0,'crm_plugin');
-  </script>
+    <!-- Hero Section -->
+    <section id="inicio" class="hero-bg h-screen flex items-center justify-center text-white pt-20">
+        <div class="text-center px-4">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight hero-title">Sua Segurança em Primeiro Lugar</h1>
+            <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto hero-subtitle">Oferecemos soluções completas em equipamentos e serviços contra incêndio, garantindo a proteção do seu patrimônio e de vidas.</p>
+            <a href="#produtos" class="btn-primary bg-red-600 text-white font-semibold px-10 py-4 rounded-lg shadow-lg hover:bg-red-700 text-lg">
+                Conheça Nossos Extintores
+            </a>
+        </div>
+    </section>
 
+    <!-- Products Section -->
+    <section id="produtos" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 section-title">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Nossos Produtos</h2>
+                <p class="text-gray-600 mt-2">Equipamentos certificados para todas as classes de incêndio.</p>
+                <div class="w-24 h-1 bg-red-500 mx-auto mt-4"></div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Product Card 1 -->
+                <div class="card bg-gray-50 rounded-xl overflow-hidden shadow-lg border border-gray-200/50">
+                    <img src="https://placehold.co/400x300/ef4444/ffffff?text=Extintor+de+%C3%81gua" alt="Extintor de Água Pressurizada" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Extintor de Água</h3>
+                        <p class="text-gray-600 text-base">Ideal para incêndios de classe A (madeira, papel, tecido). Age por resfriamento.</p>
+                    </div>
+                </div>
+                <!-- Product Card 2 -->
+                <div class="card bg-gray-50 rounded-xl overflow-hidden shadow-lg border border-gray-200/50">
+                    <img src="https://placehold.co/400x300/3b82f6/ffffff?text=Extintor+CO2" alt="Extintor de CO2" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Extintor de CO²</h3>
+                        <p class="text-gray-600 text-base">Indicado para classe C (equipamentos elétricos). Não deixa resíduos e não é condutor.</p>
+                    </div>
+                </div>
+                <!-- Product Card 3 -->
+                <div class="card bg-gray-50 rounded-xl overflow-hidden shadow-lg border border-gray-200/50">
+                    <img src="https://placehold.co/400x300/f59e0b/ffffff?text=Extintor+P%C3%B3+Qu%C3%ADmico" alt="Extintor de Pó Químico" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Extintor Pó Químico</h3>
+                        <p class="text-gray-600 text-base">Versátil para classes A, B e C. Alta eficiência no combate a diversos tipos de fogo.</p>
+                    </div>
+                </div>
+                <!-- Product Card 4 -->
+                <div class="card bg-gray-50 rounded-xl overflow-hidden shadow-lg border border-gray-200/50">
+                    <img src="https://placehold.co/400x300/10b981/ffffff?text=Extintor+Espuma" alt="Extintor de Espuma Mecânica" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Extintor de Espuma</h3>
+                        <p class="text-gray-600 text-base">Eficaz em incêndios de classe B (líquidos inflamáveis) e A. Age por abafamento.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicos" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 section-title">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Nossos Serviços</h2>
+                <p class="text-gray-600 mt-2">Manutenção completa para sua segurança contínua.</p>
+                <div class="w-24 h-1 bg-red-500 mx-auto mt-4"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+                <!-- Service 1 -->
+                <div class="card-service p-8 bg-white rounded-xl shadow-md border border-gray-200/50">
+                    <div class="flex justify-center mb-4">
+                        <div class="bg-red-100 p-4 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-600 icon-service"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Inspeção e Manutenção</h3>
+                    <p class="text-gray-600">Verificação periódica e manutenção preventiva e corretiva de todos os tipos de extintores, conforme normas ABNT.</p>
+                </div>
+                <!-- Service 2 -->
+                <div class="card-service p-8 bg-white rounded-xl shadow-md border border-gray-200/50">
+                    <div class="flex justify-center mb-4">
+                        <div class="bg-red-100 p-4 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-600 icon-service"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2v2a2 2 0 0 1 2 2v5a2 2 0 0 0 2 2h1"/><path d="M16 21h1a2 2 0 0 0 2-2v-5a2 2 0 0 1 2-2v-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/><path d="M12 3v18"/></svg>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Recarga de Extintores</h3>
+                    <p class="text-gray-600">Serviço de recarga com agentes extintores de alta qualidade, garantindo a eficácia do equipamento em caso de emergência.</p>
+                </div>
+                <!-- Service 3 -->
+                <div class="card-service p-8 bg-white rounded-xl shadow-md border border-gray-200/50">
+                    <div class="flex justify-center mb-4">
+                        <div class="bg-red-100 p-4 rounded-full">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-600 icon-service"><path d="M18 8V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v2"/><path d="M2 8h20"/><path d="M17 14h.01"/><path d="M7 14h.01"/><path d="M12 14h.01"/><path d="M17 18h.01"/><path d="M7 18h.01"/><path d="M12 18h.01"/><rect width="20" height="12" x="2" y="8" rx="2"/></svg>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Treinamento de Brigada</h3>
+                    <p class="text-gray-600">Capacitação de equipes para o uso correto de extintores e procedimentos de evacuação, conforme a legislação vigente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="sobre" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2 about-image">
+                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Equipe Extigraf" class="rounded-xl shadow-2xl w-full">
+                </div>
+                <div class="lg:w-1/2 about-text">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Sobre a Extigraf</h2>
+                    <div class="w-24 h-1 bg-red-500 mb-6"></div>
+                    <p class="text-gray-600 mb-4">
+                        Com mais de 15 anos de experiência no mercado, a Extigraf se consolidou como referência em segurança contra incêndio. Nossa missão é fornecer produtos e serviços da mais alta qualidade, seguindo rigorosamente as normas técnicas e legislações, para garantir a tranquilidade e proteção de nossos clientes.
+                    </p>
+                    <p class="text-gray-600">
+                        Contamos com uma equipe de profissionais altamente qualificados e certificados, prontos para oferecer consultoria especializada e soluções personalizadas para empresas, condomínios e indústrias de todos os portes.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contato" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 section-title">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Entre em Contato</h2>
+                <p class="text-gray-600 mt-2">Estamos prontos para atender você. Peça seu orçamento!</p>
+                <div class="w-24 h-1 bg-red-500 mx-auto mt-4"></div>
+            </div>
+            <div class="max-w-4xl mx-auto bg-white p-8 sm:p-12 rounded-xl shadow-lg">
+                <form action="#" method="POST" class="contact-form">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="name" class="block text-gray-700 font-medium mb-2">Nome</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500 transition" required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500 transition" required>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label for="message" class="block text-gray-700 font-medium mb-2">Mensagem</label>
+                        <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500 transition" required></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn-primary bg-red-600 text-white font-semibold px-10 py-3 rounded-lg shadow-lg hover:bg-red-700 text-lg">
+                            Enviar Mensagem
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-10">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-2xl font-bold text-red-500 mb-2">Extigraf</p>
+            <p class="text-gray-400 mb-4">Sua segurança é nosso compromisso.</p>
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#" class="text-gray-400 hover:text-white transition"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                <a href="#" class="text-gray-400 hover:text-white transition"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
+                <a href="#" class="text-gray-400 hover:text-white transition"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>
+            </div>
+            <p class="text-gray-500 text-sm">&copy; 2024 Extigraf. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Header style on scroll
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('py-2');
+                header.classList.remove('py-4');
+            } else {
+                header.classList.add('py-4');
+                header.classList.remove('py-2');
+            }
+        });
+
+        // ScrollReveal Animations
+        const sr = ScrollReveal({
+            distance: '60px',
+            duration: 2500,
+            delay: 400,
+            reset: false, // Animations will only happen once
+        });
+
+        sr.reveal('.hero-title', { delay: 500, origin: 'top' });
+        sr.reveal('.hero-subtitle', { delay: 600, origin: 'bottom' });
+        sr.reveal('.btn-primary', { delay: 700, origin: 'bottom', distance: '100px' });
+        sr.reveal('.section-title', { delay: 200, origin: 'top', interval: 100 });
+        sr.reveal('.card', { delay: 300, origin: 'bottom', interval: 200 });
+        sr.reveal('.card-service', { delay: 300, origin: 'left', interval: 200 });
+        sr.reveal('.about-image', { delay: 300, origin: 'left' });
+        sr.reveal('.about-text', { delay: 400, origin: 'right' });
+        sr.reveal('.contact-form', { delay: 300, origin: 'bottom', scale: 0.9 });
+
+        // Active Nav Link on Scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active', 'text-red-600');
+                if (link.href.includes(current)) {
+                    link.classList.add('active', 'text-red-600');
+                } else {
+                    link.classList.remove('text-red-600');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
